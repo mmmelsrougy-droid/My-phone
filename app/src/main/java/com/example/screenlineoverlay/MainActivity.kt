@@ -63,3 +63,50 @@ class MainActivity : AppCompatActivity() {
                 stopService(Intent(this, OverlayService::class.java))
                 toggleButton.text = "Start Overlay"
             }
+            isRunning = !isRunning
+        }
+    }
+
+    private fun startOverlay() {
+        val intent = Intent(this, OverlayService::class.java)
+        intent.putExtra("width", width)
+        intent.putExtra("offset", offset)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(intent)
+        } else {
+            startService(intent)
+        }
+    }
+
+    private fun updateOverlay() {
+        startOverlay()
+    }
+}        })
+
+        offsetSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(sb: SeekBar?, progress: Int, fromUser: Boolean) {
+                offset = progress
+                offsetLabel.text = "Position from edge: $offset px"
+                if (isRunning) updateOverlay()
+            }
+            override fun onStartTrackingTouch(sb: SeekBar?) {}
+            override fun onStopTrackingTouch(sb: SeekBar?) {}
+        })
+
+        toggleButton.setOnClickListener {
+            if (!Settings.canDrawOverlays(this)) {
+                val intent = Intent(
+                    Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                    Uri.parse("package:$packageName")
+                )
+                startActivity(intent)
+                return@setOnClickListener
+            }
+
+            if (!isRunning) {
+                startOverlay()
+                toggleButton.text = "Stop Overlay"
+            } else {
+                stopService(Intent(this, OverlayService::class.java))
+                toggleButton.text = "Start Overlay"
+            }
