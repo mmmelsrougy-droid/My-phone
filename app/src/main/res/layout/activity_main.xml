@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp">
+
+    <TextView
+        android:id="@+id/widthLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Width: 4 px"
+        android:textSize="18sp" />
+
+    <SeekBar
+        android:id="@+id/widthSeekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="29"
+        android:progress="3" />
+
+    <TextView
+        android:id="@+id/offsetLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Position from edge: 0 px"
+        android:textSize="18sp" />
+
+    <SeekBar
+        android:id="@+id/offsetSeekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="50"
+        android:progress="0" />
+
+    <Button
+        android:id="@+id/toggleButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Start Overlay" />
+
+</LinearLayout>
